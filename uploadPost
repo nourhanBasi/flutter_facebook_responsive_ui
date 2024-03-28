@@ -1,0 +1,176 @@
+import 'package:flutter/material.dart';
+import 'posts.dart';
+
+void main() {
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: UploadPostPage(),
+  ));
+}
+
+class UploadPostPage extends StatefulWidget {
+  @override
+  _UploadPostPageState createState() => _UploadPostPageState();
+}
+
+class _UploadPostPageState extends State<UploadPostPage> {
+  bool isAnonymous = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          icon: const Icon(Icons.close, color:  Color(0xff3a5985)),
+          onPressed: () {
+            // Navigate to PostsPage when close icon is clicked
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Posts()),
+            );
+          },
+        ),
+        actions: [
+          Row(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  // Add logic to post the content
+                },
+                child: const Text(
+                  'نشر',
+                  style:  TextStyle(
+                    fontFamily: 'Almarai',
+                    color: Colors.black,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  side: const BorderSide(
+                      color:  Color(0xff3a5985),
+                      width: 2
+                  ),
+                ),
+              ),
+            const  SizedBox(width: 10), // Add some space between the avatar and the button
+            ],
+          ),
+        ],
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 20),
+          const Padding(
+            padding:  EdgeInsets.symmetric(horizontal: 20),
+            child:  Row(
+              mainAxisAlignment: MainAxisAlignment.end, // Align items to the right
+              children: [
+                Expanded(
+                  child: TextField(
+                    textAlign: TextAlign.right,
+                    maxLines: null,
+                    keyboardType: TextInputType.multiline,
+                    decoration: InputDecoration(
+                      hintText: 'ما المشكلة التي تواجهك؟',
+                      hintStyle: TextStyle(fontFamily: 'Almarai'),
+                      border: InputBorder.none, // Remove border
+                      contentPadding: EdgeInsets.all(10),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 10), // Add some space between the text field and the avatar
+                CircleAvatar(
+                  radius: 20,
+                  backgroundImage: AssetImage('assets/me.jpeg'),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                const Text('المشاركة كمجهول', style: TextStyle(fontFamily: 'Almarai', color: Colors.grey, fontSize: 11, fontWeight: FontWeight.normal)),
+                const SizedBox(width: 8), // Add space between the text and switch
+                Transform.scale(
+                  scale: 0.7, // Adjust the size of the switch
+                  child: Switch(
+                    value: isAnonymous,
+                    onChanged: (value) {
+                      setState(() {
+                        isAnonymous = value;
+                      });
+                    },
+                    activeColor: const Color(0xff3a5985),
+                    inactiveThumbColor: Colors.white,
+                    inactiveTrackColor: Colors.grey[300],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 20),
+        ],
+      ),
+      // Row of icons
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  // Handle the tap on the video icon
+                },
+                child: const MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: Icon(
+                    Icons.video_library,
+                    color: Color(0xff3a5985),
+                    size: 30,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 10),
+              GestureDetector(
+                onTap: () {
+                  // Handle the tap on the mic icon
+                },
+                child: const MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child:  Icon(
+                    Icons.mic_outlined,
+                    color: Color(0xff3a5985),
+                    size: 30,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 10),
+              GestureDetector(
+                onTap: () {
+                  // Handle the tap on the photo icon
+                },
+                child: const MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: Icon(
+                    Icons.photo_library,
+                    color: Color(0xff3a5985),
+                    size: 30,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
